@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * The site is dark-only, so shadcn's tokens are defined once on :root.
+ * --brand is the switchable accent (command menu → Accent colour).
+ */
+:root {
+  --radius: 0.5rem;
+
+  --background: #07080a;
+  --foreground: #edebe6;
+  --card: #101216;
+  --card-foreground: #edebe6;
+  --popover: #101216;
+  --popover-foreground: #edebe6;
+  --primary: var(--brand);
+  --primary-foreground: #07080a;
+  --secondary: #15181d;
+  --secondary-foreground: #edebe6;
+  --muted: #15181d;
+  --muted-foreground: #a4a7ae;
+  --accent: #1b1e24;
+  --accent-foreground: #edebe6;
+  --destructive: #ff5c5c;
+  --border: #23262c;
+  --input: #3a3e46;
+  --ring: var(--brand);
+
+  --brand: #6e9bff;
+  --surface: #0c0e11;
+  --line-strong: #3a3e46;
+  --dim: #737882;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-surface: var(--surface);
+  --color-line-strong: var(--line-strong);
+  --color-dim: var(--dim);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-blink: blink 1s steps(1) infinite;
+  --animate-ping-soft: ping-soft 2s infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes ping-soft {
+    70% {
+      box-shadow: 0 0 0 9px color-mix(in oklab, var(--brand) 0%, transparent);
+    }
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand) 60%, transparent);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  html {
+    @apply scroll-smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  ::selection {
+    @apply bg-brand text-background;
+  }
+  em {
+    @apply font-serif font-normal tracking-[-0.01em] italic;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-360 px-5 sm:px-8 lg:px-20;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(#1b1e24 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--foreground);
+}
+
+/* Film grain over the whole page. */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Lights up each workflow step in turn (6 steps × 1.2s). */
+@keyframes workflow-step {
+  0%,
+  14% {
+    border-color: var(--brand);
+    background: var(--brand);
+    color: var(--background);
+    box-shadow: 0 0 24px color-mix(in oklab, var(--brand) 50%, transparent);
+  }
+  20%,
+  100% {
+    border-color: var(--line-strong);
+    background: var(--background);
+    color: var(--muted-foreground);
+    box-shadow: none;
+  }
+}
