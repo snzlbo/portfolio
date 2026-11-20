@@ -48,35 +48,7 @@ src/
 └── lib/                      Pure utilities and the WebGL shader, unit-tested
 ```
 
-Conventions:
-
-- **Content is data.** Every word on the site lives in `src/content/*.ts`. Components only render it.
-- **Server by default.** Only components that need state, effects or pointer events are marked `"use client"`.
-- **Logic lives in `lib/`** as pure functions, so it can be tested without a browser.
-- **Motion respects the user.** `MotionConfig reducedMotion="user"` plus explicit checks turn off
-  smooth scroll, the custom cursor, tilt and the shader animation for people who prefer reduced motion.
-- **shadcn/ui** components are in `components/ui` and can be updated with `npx shadcn@latest add <name>`.
-
-## Editing content
-
-| What                         | Where                                                    |
-| ---------------------------- | -------------------------------------------------------- |
-| Projects and case-study text | `src/content/projects.ts`                                |
-| Project screenshots          | `public/projects/<slug>/…`, then set `cover` / `gallery` |
-| Skills and stack             | `src/content/stack.ts`                                   |
-| Experience timeline          | `src/content/experience.ts`                              |
-| Email, socials, résumé, nav  | `src/content/site.ts`                                    |
-| Résumé PDF                   | `public/Sainzolboo-Anujin-Resume.pdf`                    |
-| Colours, fonts, radii        | `src/app/globals.css` and `src/app/layout.tsx`           |
-
-A case study only renders "The problem", "What I did" and "Outcome" when those fields have text.
-
 ## Deploying
 
 Import the repository in Vercel; it detects Next.js automatically. Every push to `main` runs CI
 (lint, typecheck, tests, build) in GitHub Actions.
-
-## Keyboard
-
-`Ctrl/⌘ + K` opens the command menu: jump to sections, open case studies, copy the email,
-open the résumé or change the accent colour.
