@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata, Viewport } from "next"
 import { Instrument_Serif, JetBrains_Mono, Space_Grotesk, Unbounded } from "next/font/google"
 
@@ -92,6 +93,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 z-55 grain opacity-[0.07]"
         />
+        <Analytics />
       </body>
     </html>
   )
